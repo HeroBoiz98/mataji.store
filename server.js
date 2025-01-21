@@ -2,10 +2,14 @@ const express = require('express');
 const mongoose = require('mongoose');
 const multer = require('multer');
 const cors = require('cors');
+const path = require('path');
 
 const app = express();
 app.use(cors());
 app.use(express.json());
+
+// Serve static files (index.html and product.html) from the current directory
+app.use(express.static(path.join(__dirname)));
 
 // MongoDB connection
 mongoose.connect('mongodb+srv://adt:adtsh@store.inpfb.mongodb.net/?retryWrites=true&w=majority&appName=store', {
@@ -106,6 +110,16 @@ app.get('/products/:category', async (req, res) => {
         console.error('Error fetching products:', error);
         res.status(500).send('Error fetching products.');
     }
+});
+
+// Route to serve index.html
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'index.html'));
+});
+
+// Route to serve product.html
+app.get('/product', (req, res) => {
+    res.sendFile(path.join(__dirname, 'product.html'));
 });
 
 // Start the server
