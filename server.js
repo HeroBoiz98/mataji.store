@@ -31,7 +31,7 @@ const getOrCreateModel = (category) => {
             description: String,
             weight: Number,
             unit: String,
-            brand: String,
+            brand: String, // Make sure brand is included in the schema
             images: [Buffer], // Buffer to store binary image data
         });
         models[category] = mongoose.model(category, productSchema);
@@ -70,7 +70,7 @@ app.post('/categories', async (req, res) => {
 // Route to add a product to a category
 app.post('/products/:category', upload.array('images', 10), async (req, res) => {
     const { category } = req.params;
-    const { name, price, description, weight, unit } = req.body;
+    const { name, price, description, weight, unit, brand } = req.body;
 
     try {
         const ProductModel = getOrCreateModel(category);
@@ -81,7 +81,7 @@ app.post('/products/:category', upload.array('images', 10), async (req, res) => 
             description,
             weight,
             unit,
-            brand,
+            brand, // Save the brand value
             images: req.files.map((file) => file.buffer), // Save images as buffer
         });
 
