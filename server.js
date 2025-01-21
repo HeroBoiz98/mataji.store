@@ -2,13 +2,13 @@ const express = require('express');
 const mongoose = require('mongoose');
 const multer = require('multer');
 const cors = require('cors');
-const path = require('path'); // Required for serving static files
+const path = require('path');
 
 const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Serve static files from the current directory (assuming index.html is there)
+// Serve static files (index.html and product.html) from the current directory
 app.use(express.static(path.join(__dirname)));
 
 // MongoDB connection
@@ -31,7 +31,6 @@ const getOrCreateModel = (category) => {
             description: String,
             weight: Number,
             unit: String,
-            brand: String, // New field for Brand
             images: [Buffer], // Buffer to store binary image data
         });
         models[category] = mongoose.model(category, productSchema);
@@ -70,7 +69,7 @@ app.post('/categories', async (req, res) => {
 // Route to add a product to a category
 app.post('/products/:category', upload.array('images', 10), async (req, res) => {
     const { category } = req.params;
-    const { name, price, description, weight, unit, brand } = req.body;
+    const { name, price, description, weight, unit } = req.body;
 
     try {
         const ProductModel = getOrCreateModel(category);
@@ -81,7 +80,6 @@ app.post('/products/:category', upload.array('images', 10), async (req, res) => 
             description,
             weight,
             unit,
-            brand, // Save brand to database
             images: req.files.map((file) => file.buffer), // Save images as buffer
         });
 
@@ -114,13 +112,18 @@ app.get('/products/:category', async (req, res) => {
     }
 });
 
-// Route to serve index.html when accessing root URL
+// Route to serve index.html
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'index.html'));
 });
 
+// Route to serve product.html
+app.get('/product', (req, res) => {
+    res.sendFile(path.join(__dirname, 'product.html'));
+});
+
 // Start the server
-const PORT = process.env.PORT || 3000;
+const PORT = 3000;
 app.listen(PORT, () => {
     console.log(`Server running on http://localhost:${PORT}`);
 });
