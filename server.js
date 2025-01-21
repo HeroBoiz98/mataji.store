@@ -2,14 +2,10 @@ const express = require('express');
 const mongoose = require('mongoose');
 const multer = require('multer');
 const cors = require('cors');
-const path = require('path');
 
 const app = express();
 app.use(cors());
 app.use(express.json());
-
-// Serve static files (index.html and product.html) from the current directory
-app.use(express.static(path.join(__dirname)));
 
 // MongoDB connection
 mongoose.connect('mongodb+srv://adt:adtsh@store.inpfb.mongodb.net/?retryWrites=true&w=majority&appName=store', {
@@ -31,6 +27,7 @@ const getOrCreateModel = (category) => {
             description: String,
             weight: Number,
             unit: String,
+            brand: String, // New field for Brand
             images: [Buffer], // Buffer to store binary image data
         });
         models[category] = mongoose.model(category, productSchema);
@@ -69,7 +66,7 @@ app.post('/categories', async (req, res) => {
 // Route to add a product to a category
 app.post('/products/:category', upload.array('images', 10), async (req, res) => {
     const { category } = req.params;
-    const { name, price, description, weight, unit } = req.body;
+    const { name, price, description, weight, unit, brand } = req.body;
 
     try {
         const ProductModel = getOrCreateModel(category);
@@ -80,6 +77,7 @@ app.post('/products/:category', upload.array('images', 10), async (req, res) => 
             description,
             weight,
             unit,
+            brand, // Save brand to database
             images: req.files.map((file) => file.buffer), // Save images as buffer
         });
 
@@ -110,16 +108,6 @@ app.get('/products/:category', async (req, res) => {
         console.error('Error fetching products:', error);
         res.status(500).send('Error fetching products.');
     }
-});
-
-// Route to serve index.html
-app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'index.html'));
-});
-
-// Route to serve product.html
-app.get('/product', (req, res) => {
-    res.sendFile(path.join(__dirname, 'product.html'));
 });
 
 // Start the server
