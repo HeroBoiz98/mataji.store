@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9402946388242349"
+     crossorigin="anonymous"></script>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/x-icon" href="/images/Logo.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Page</title>
+    <style>
+         .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropbtn {
+            background-color: #fff;
+            color: #333;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #fff;
+            min-width: 160px;
+            z-index: 1;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .dropdown-content a {
+            color: #333;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #f9f9f9;
+        }
+
+        .show {
+            display: block;
+        }
+        .category-navbar.mobile .category-navbar-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px; /* Adjust padding as needed */
+}
+
+.category-navbar.mobile .category-navbar-container a {
+    text-decoration: none;
+    color: black; /* Change color as needed */
+}
+.carousel {
+            width: 100%; /* Default width for mobile */
+            overflow: hidden;
+        }
+        .carousel img {
+            width: 100%;
+            height: auto;
+        }
+        
+        /* Media query for desktop */
+        @media screen and (min-width: 768px) {
+            .carousel img.mobile-image {
+                display: none; /* Hide mobile poster in desktop */
+            }
+            .carousel img.desktop-image {
+                display: block;
+                margin: 0 auto; /* Center the image */
+                width: 80%; /* Make the image fill 80% of the carousel */
+                max-width: 100%;
+            }
+        }
+
+        /* Media query for mobile */
+        @media screen and (max-width: 767px) {
+            .carousel img.desktop-image {
+                display: none; /* Hide desktop poster in mobile */
+            }
+        }
+        .carousel {
+            width: 100%; /* Default width for mobile */
+            overflow: hidden;
+        }
+        .carousel img {
+            width: 100%;
+            height: auto;
+        }
+        
+        /* Media query for desktop */
+        @media screen and (min-width: 768px) {
+            .carousel img.mobile-image {
+                display: none; /* Hide mobile poster in desktop */
+            }
+            .carousel img.desktop-image {
+                display: block;
+                margin: 0 auto; /* Center the image */
+                width: 80%; /* Make the image fill 80% of the carousel */
+                max-width: 100%;
+            }
+            .carousel img.desktop-poster {
+                display: none; /* Hide Poster_1.png in desktop */
+            }
+        }
+
+        /* Media query for mobile */
+        @media screen and (max-width: 767px) {
+            .carousel img.desktop-image {
+                display: none; /* Hide desktop poster in mobile */
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"> <!-- Font Awesome CSS -->
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-container">
+            <div class="logo">
+                <a href="index.html">
+                  <b><span class="company-name">Mata Ji Kirana</span></b>
+                  <i class="fas fa-home"></i>
+                </a>
+            </div>
+            <div class="search-bar">
+                <a href="search.html">
+                    <input id="search-input" type="text" placeholder="Search...">
+                    <button id="search-button"><i class="fas fa-search"></i></button>
+                </a>
+            </div>
+            <div class="search-button-mobile">
+                <button id="mobileSearchButton"><i class="fas fa-search"></i></button>
+            </div>
+        </div>
+    </nav>
+    <nav class="category-navbar desktop">
+        <div class="category-navbar-container">
+            <div class="dropdown">
+                <button class="dropbtn">Shop By Category <i class="fas fa-caret-down"></i></button>
+                <div class="dropdown-content">
+                    <a href="masala_product.html">Masala / Spices</a>
+                    <a href="snacks.html">Snacks</a>
+                    <a href="dairy_products.html">Dairy</a>
+                    <a href="electronics.html">Electronics</a>  
+                    <a href="soap_and_shampoo_products.html">Soap & Shampoo</a>
+                    <a href="cold_drinks_product.html">Cold Drinks</a>
+                    <a href="House_Holds_Products.html">House holds</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    
+    <nav class="category-navbar mobile">
+        <div class="category-navbar-container">
+            <b><p>Shop By Category</p></b>
+            <a href="masala_product.html">Masala / Spices</a>
+            <a href="snacks.html">Snacks </a>
+            <a href="dairy_products.html">Dairy</a>
+            <a href="electronics.html">Electronics</a>  
+            <a href="soap_and_shampoo_products.html">Soap & Shampoo</a>
+            <a href="cold_drinks_product.html">Cold Drinks</a>
+            <a href="House_Holds_Products.html">House holds</a>
+        </div>
+    </nav>
+    
+<div class="container">
+    <div class="icon-slider">
+        <a href="masala_product.html">
+        <div class="icon">
+            <img src="images/Masala.jpg" alt="Icon 1">
+ 
+        </div>
+    </a>
+    <a href="snacks.html">
+        <div class="icon">
+            <img src="images/Snacks.jpg" alt="Icon 3">
+           
+        </div>
+    </a> 
+        <a href="dairy_products.html">
+        <div class="icon">
+            <img src="images/Dairy.jpg" alt="Icon 2">
+      
+        </div>
+    </a>
+        <a href="electronics.html">
+        <div class="icon">
+            <img src="images/Electronics.jpg" alt="Icon 3">
+
+        </div>
+    </a>
+        <a href="soap_and_shampoo_products.html">
+        <div class="icon">
+            <img src="images/Soap.jpg" alt="Icon 3">
+        </div>
+        </a>
+        <a href="cold_drinks_product.html">
+        <div class="icon">
+            <img src="images/drinks.jpg" alt="Icon 3">
+           
+        </div>
+    </a>  
+    <a href="House_Holds_Products.html">
+        <div class="icon">
+            <img src="images/HouseHolds.jpg" alt="Icon 3">
+           
+        </div>
+    </a>  
+   
+    </div>
+   
+    </div>
+    <div id="productContainer" style="display: none;">
+        <!-- Products will be displayed dynamically here -->
+    </div>
+
+</div>
+
+<a href="cart.html" class="cart-button"><i class="fas fa-shopping-cart"></i></a> <!-- Link to cart.html with cart icon -->
+        <!-- <div class="slideshow-container"> -->
+            <!-- <div class="slide fade">
+                <img src="images/Poster_1.png" alt="Product 1">
+            </div> -->
+            <!-- <div class="slide fade">
+                <img src="https://via.placeholder.com/1000x1000" alt="Product 2">
+            </div>
+            <div class="slide fade">
+                <img src="https://via.placeholder.com/1000x400" alt="Product 3">
+            </div> -->
+        </div>
+        <div class="carousel">
+            <img class="mobile-image" src="images/Poster_1.png" alt="Mobile Poster 1">
+            <!-- Additional image for desktop -->
+            <img class="desktop-image" src="images/Desktop_Poster_1.png" alt="Desktop Poster 1">
+        </div>
+<div class="brand-section">
+    <h2>Shop Now</h2>
+    <div class="brand-logos">
+        <a href="balaji.html">
+            <img src="https://play-lh.googleusercontent.com/dOqKedNbqj-l2uFSE8tAMTalL_z8MizPLv7QjkYF7jSqJQiNJ8Fj1q1Gb9tREUZSdg" alt="Brand 1">
+        </a>
+        <a href="cadbury.html">
+            <img src="https://www.snackhistory.com/wp-content/uploads/2022/05/Cadbury-Dairy-Milk-1.jpg" alt="Brand 2">
+        </a>
+        <a href="everest.html">
+            <img src="https://www.lakshmistores.com/cdn/shop/collections/download_b63cd332-6521-437f-9575-7e03e5606f9f.png?v=1639234681" alt="Brand 2">
+        </a>
+        <a href="Badshah.html">
+            <img src="data:image/png;base64,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" alt="Brand 2">
+        </a>
+    </div>
+  
+</div>
+
+<div id="searchPopup" class="popup">
+    <div class="popup-content">
+        <span class="close" onclick="closeSearch()">&times;</span>
+        <input type="text" id="searchInputPopup" onkeyup="searchProducts()" placeholder="Search for products...">
+        <div id="searchResults"></div>
+    </div>
+</div>
+<div class="interactive-cards">
+    <div class="card">
+        <h2>Snacks</h2>
+        <b><p>EasyGroc</p></b>
+        <button onclick="redirectToPage('snacks.html')">View Details</button>
+    </div>
+    <div class="card">
+        <h2>Dairy Products</h2>
+        <b><p>EasyGroc</p></b>
+        <button onclick="redirectToPage('dairy_products.html')">View Details</button>
+    </div>
+    <div class="card">
+        <h2>Cold Drinks</h2>
+       <b><p>EasyGroc</p></b>
+        <button onclick="redirectToPage('cold_drinks_product.html')">View Details</button>
+    </div>
+    <div class="card">
+        <h2>House Holds</h2>
+       <b><p>EasyGroc</p></b>
+        <button onclick="redirectToPage('House_Holds_Products.html')">View Details</button>
+    </div>
+    <div class="card">
+        <h2>Soap & Shampoo</h2>
+    <b> <p>EasyGroc</p></b>
+        <button onclick="redirectToPage('soap_and_shampoo_products.html')">View Details</button>
+    </div>
+    <div class="card">
+        <h2>Masala</h2>
+      <b>  <p>EasyGroc</p></b>
+        <button onclick="redirectToPage('masala_product.html')">View Details</button>
+    </div>
+    <div class="card">
+        <h2>Electronics</h2>
+    <b><p>EasyGroc</p></b>
+        <button onclick="redirectToPage('electronics.html')">View Details</button>
+    </div>
+    
+<div id="cart_popup"></div>
+
+<script>
+       document.addEventListener('DOMContentLoaded', function () {
+        const swiper = new Swiper('.swiper-container', {
+            loop: true,
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+            },
+            autoplay: {
+                delay: 5000,
+            },
+        });
+    });
+      function redirectToSearch() {
+        window.location.href = "search.html";
+    }
+    function redirectToPage(nextPage) {
+    window.location.href = nextPage; 
+}
+
+    function addToCart(name, price) {
+        let cartItems = JSON.parse(localStorage.getItem('cart')) || [];
+
+        let found = false;
+        cartItems.forEach(item => {
+            if (item.name === name) {
+                item.quantity++;
+                found = true;
+            }
+        });
+
+        if (!found) {
+            cartItems.push({ name: name, price: price, quantity: 1 });
+        }
+
+        localStorage.setItem('cart', JSON.stringify(cartItems));
+
+        // Show pop-up message
+        showCartPopup(name);
+    }
+
+    function showCartPopup(productName) {
+        const cartPopup = document.getElementById('cart_popup');
+        cartPopup.innerText = `${productName} added to cart!`;
+        cartPopup.style.display = 'block';
+
+        setTimeout(() => {
+            cartPopup.style.display = 'none';
+        }, 2000);
+    }
+
+    function openSearch() {
+        document.getElementById('searchPopup').style.display = 'flex';
+    }
+
+    function closeSearch() {
+        document.getElementById('searchPopup').style.display = 'none';
+    }
+
+    function searchProducts() {
+        let input, filter, products, productName, i;
+        input = document.getElementById('searchInputPopup');
+        filter = input.value.toUpperCase();
+        products = document.getElementById('productContainer').getElementsByClassName('product');
+        let searchResults = '';
+
+        for (i = 0; i < products.length; i++) {
+            productName = products[i].getElementsByClassName('product-name')[0];
+            if (productName.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                searchResults += products[i].outerHTML;
+            }
+        }
+
+        document.getElementById('searchResults').innerHTML = searchResults;
+    }
+
+    // Fetch products from product.html and display them
+    window.addEventListener('DOMContentLoaded', () => {
+        fetch('product.html')
+            .then(response => response.text())
+            .then(data => {
+                const parser = new DOMParser();
+                const productDocument = parser.parseFromString(data, 'text/html');
+                const products = productDocument.getElementById('productContainer').innerHTML;
+                document.getElementById('productContainer').innerHTML = products;
+            })
+            
+            .catch(error => console.log('Error fetching products:', error));
+    });
+    function toggleSearchBar() {
+    const searchBar = document.querySelector('.search-bar');
+    if (window.innerWidth <= 768) { // Adjust the breakpoint as needed
+        searchBar.style.display = 'none';
+    } else {
+        searchBar.style.display = 'flex';
+    }
+}
+
+// Call the function initially to set the initial state
+toggleSearchBar();
+
+// Add event listener for window resize to update the visibility of the search bar
+window.addEventListener('resize', toggleSearchBar);
+document.addEventListener('DOMContentLoaded', function () {
+            const swiper = new Swiper('.swiper-container', {
+                loop: true,
+                pagination: {
+                    el: '.swiper-pagination',
+                    clickable: true,
+                },
+                autoplay: {
+                    delay: 5000,
+                },
+            });
+        });
+        let slideIndex = 0;
+        showSlides();
+
+        function showSlides() {
+            let slides = document.getElementsByClassName("slide");
+           for (let i = 0; i < slides.length; i++) {
+    slides[i].style.display = "none";  
+}
+
+            slideIndex++;
+            if (slideIndex > slides.length) { slideIndex = 1 }
+            slides[slideIndex - 1].style.display = "block";
+            setTimeout(showSlides, 3000); // Change image every 5 seconds
+        }
+        document.addEventListener('DOMContentLoaded', function () {
+    // Add event listener to the search button for mobile
+    document.getElementById('mobileSearchButton').addEventListener('click', function () {
+        // Redirect the user to search.html
+        window.location.href = 'search.html';
+    });
+});
+   // Add this JavaScript to toggle the dropdown
+   document.addEventListener('DOMContentLoaded', function () {
+            const dropbtn = document.querySelector('.dropbtn');
+            const dropdownContent = document.querySelector('.dropdown-content');
+
+            // Function to toggle the dropdown
+            function toggleDropdown() {
+                dropdownContent.classList.toggle('show');
+            }
+
+            dropbtn.addEventListener('click', toggleDropdown);
+
+            // Close the dropdown if the user clicks outside of it
+            window.addEventListener('click', function (event) {
+                if (!event.target.matches('.dropbtn')) {
+                    if (dropdownContent.classList.contains('show')) {
+                        dropdownContent.classList.remove('show');
+                    }
+                }
+            });
+        });
+</script>
+
+</body>
+</html>
