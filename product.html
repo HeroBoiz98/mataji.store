@@ -66,7 +66,7 @@
 
             try {
                 // Fetch categories
-                const categoryResponse = await fetch('http://localhost:3000/categories');
+                const categoryResponse = await fetch('https://mataji-store.onrender.com/categories');
                 const categories = await categoryResponse.json();
 
                 for (const category of categories) {
@@ -82,7 +82,7 @@
                     productContainer.className = 'products';
 
                     // Fetch products for this category
-                    const productResponse = await fetch(`http://localhost:3000/products/${category}`);
+                    const productResponse = await fetch(`https://mataji-store.onrender.com//products/${category}`);
                     const products = await productResponse.json();
 
                     products.forEach((product) => {
