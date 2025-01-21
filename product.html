@@ -82,7 +82,7 @@
                     productContainer.className = 'products';
 
                     // Fetch products for this category
-                    const productResponse = await fetch(`https://mataji-store.onrender.com//products/${category}`);
+                    const productResponse = await fetch(`https://mataji-store.onrender.com/products/${category}`);
                     const products = await productResponse.json();
 
                     products.forEach((product) => {
