@@ -52,6 +52,10 @@
             font-size: 0.9em;
             color: #555;
         }
+        .brand {
+            font-weight: bold;
+            margin-top: 5px;
+        }
     </style>
 </head>
 <body>
@@ -106,6 +110,14 @@
                         const productPrice = document.createElement('p');
                         productPrice.textContent = `Price: ₹${product.price}`;
                         productCard.appendChild(productPrice);
+
+                        // Add product brand
+                        if (product.brand) {
+                            const productBrand = document.createElement('p');
+                            productBrand.className = 'brand';
+                            productBrand.textContent = `Brand: ${product.brand}`;
+                            productCard.appendChild(productBrand);
+                        }
 
                         // Add product description
                         const productDescription = document.createElement('p');
