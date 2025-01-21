@@ -2,10 +2,14 @@ const express = require('express');
 const mongoose = require('mongoose');
 const multer = require('multer');
 const cors = require('cors');
+const path = require('path'); // Required for serving static files
 
 const app = express();
 app.use(cors());
 app.use(express.json());
+
+// Serve static files from the current directory (assuming index.html is there)
+app.use(express.static(path.join(__dirname)));
 
 // MongoDB connection
 mongoose.connect('mongodb+srv://adt:adtsh@store.inpfb.mongodb.net/?retryWrites=true&w=majority&appName=store', {
@@ -110,8 +114,13 @@ app.get('/products/:category', async (req, res) => {
     }
 });
 
+// Route to serve index.html when accessing root URL
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'index.html'));
+});
+
 // Start the server
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
     console.log(`Server running on http://localhost:${PORT}`);
 });
