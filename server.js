@@ -8,8 +8,8 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Serve static files (index.html and product.html) from the current directory
-app.use(express.static(path.join(__dirname)));
+// Serve static files from the 'public' directory
+app.use(express.static('public'));
 
 // MongoDB connection
 mongoose.connect('mongodb+srv://adt:adtsh@store.inpfb.mongodb.net/?retryWrites=true&w=majority&appName=store', {
@@ -19,6 +19,11 @@ mongoose.connect('mongodb+srv://adt:adtsh@store.inpfb.mongodb.net/?retryWrites=t
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', () => console.log('Connected to MongoDB'));
+
+// Add a root route
+app.get('/', (req, res) => {
+    res.send('Welcome to the Shopit API!'); // Simple text response
+});
 
 // Dynamic schema model creation
 const models = {};
@@ -31,7 +36,7 @@ const getOrCreateModel = (category) => {
             description: String,
             weight: Number,
             unit: String,
-            brand: String, // Make sure brand is included in the schema
+            discount: { type: Number, default: 0 }, // Add discount field
             images: [Buffer], // Buffer to store binary image data
         });
         models[category] = mongoose.model(category, productSchema);
@@ -70,7 +75,7 @@ app.post('/categories', async (req, res) => {
 // Route to add a product to a category
 app.post('/products/:category', upload.array('images', 10), async (req, res) => {
     const { category } = req.params;
-    const { name, price, description, weight, unit, brand } = req.body;
+    const { name, price, description, weight, unit, discount } = req.body;
 
     try {
         const ProductModel = getOrCreateModel(category);
@@ -81,7 +86,7 @@ app.post('/products/:category', upload.array('images', 10), async (req, res) => 
             description,
             weight,
             unit,
-            brand, // Save the brand value
+            discount: discount ? parseFloat(discount) : 0, // Save discount
             images: req.files.map((file) => file.buffer), // Save images as buffer
         });
 
@@ -112,16 +117,6 @@ app.get('/products/:category', async (req, res) => {
         console.error('Error fetching products:', error);
         res.status(500).send('Error fetching products.');
     }
-});
-
-// Route to serve index.html
-app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'index.html'));
-});
-
-// Route to serve product.html
-app.get('/product', (req, res) => {
-    res.sendFile(path.join(__dirname, 'product.html'));
 });
 
 // Start the server
