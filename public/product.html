@@ -52,6 +52,10 @@
             font-size: 0.9em;
             color: #555;
         }
+        .discount {
+            color: red;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
@@ -66,7 +70,7 @@
 
             try {
                 // Fetch categories
-                const categoryResponse = await fetch('http://localhost:3000/categories');
+                const categoryResponse = await fetch('https://mataji-store.onrender.com/categories');
                 const categories = await categoryResponse.json();
 
                 for (const category of categories) {
@@ -82,7 +86,7 @@
                     productContainer.className = 'products';
 
                     // Fetch products for this category
-                    const productResponse = await fetch(`http://localhost:3000/products/${category}`);
+                    const productResponse = await fetch(`https://mataji-store.onrender.com/products/${category}`);
                     const products = await productResponse.json();
 
                     products.forEach((product) => {
@@ -106,6 +110,18 @@
                         const productPrice = document.createElement('p');
                         productPrice.textContent = `Price: ₹${product.price}`;
                         productCard.appendChild(productPrice);
+
+                        // Add discount percentage
+                        const productDiscount = document.createElement('p');
+                        productDiscount.className = 'discount';
+                        productDiscount.textContent = `Discount: ${product.discount}%`;
+                        productCard.appendChild(productDiscount);
+
+                        // Calculate and display discounted price
+                        const discountedPrice = product.price - (product.price * (product.discount / 100));
+                        const totalPrice = document.createElement('p');
+                        totalPrice.textContent = `Total Price: ₹${discountedPrice.toFixed(2)}`;
+                        productCard.appendChild(totalPrice);
 
                         // Add product description
                         const productDescription = document.createElement('p');
