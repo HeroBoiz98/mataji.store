@@ -52,9 +52,9 @@
             font-size: 0.9em;
             color: #555;
         }
-        .brand {
+        .discount {
+            color: red;
             font-weight: bold;
-            margin-top: 5px;
         }
     </style>
 </head>
@@ -111,13 +111,17 @@
                         productPrice.textContent = `Price: ₹${product.price}`;
                         productCard.appendChild(productPrice);
 
-                        // Add product brand
-                        if (product.brand) {
-                            const productBrand = document.createElement('p');
-                            productBrand.className = 'brand';
-                            productBrand.textContent = `Brand: ${product.brand}`;
-                            productCard.appendChild(productBrand);
-                        }
+                        // Add discount percentage
+                        const productDiscount = document.createElement('p');
+                        productDiscount.className = 'discount';
+                        productDiscount.textContent = `Discount: ${product.discount}%`;
+                        productCard.appendChild(productDiscount);
+
+                        // Calculate and display discounted price
+                        const discountedPrice = product.price - (product.price * (product.discount / 100));
+                        const totalPrice = document.createElement('p');
+                        totalPrice.textContent = `Total Price: ₹${discountedPrice.toFixed(2)}`;
+                        productCard.appendChild(totalPrice);
 
                         // Add product description
                         const productDescription = document.createElement('p');
