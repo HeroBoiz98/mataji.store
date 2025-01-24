@@ -35,6 +35,10 @@
         button:hover {
             background-color: #218838;
         }
+        .discounted-price {
+            font-weight: bold;
+            color: green;
+        }
     </style>
 </head>
 <body>
@@ -50,6 +54,11 @@
             <label for="productPrice">Product Price</label>
             <input type="number" id="productPrice" required>
 
+            <label for="productDiscount">Discount %</label>
+            <input type="number" id="productDiscount" min="0" max="100" placeholder="Enter discount percentage" oninput="calculateDiscountedPrice()">
+
+            <div class="discounted-price" id="discountedPriceDisplay">Discounted Price: ₹0.00</div>
+
             <label for="productDescription">Product Description</label>
             <textarea id="productDescription" rows="4" required></textarea>
 
@@ -62,9 +71,6 @@
                 <option value="L">L</option>
                 <option value="ml">ml</option>
             </select>
-
-            <label for="productBrand">Product Brand</label>
-            <input type="text" id="productBrand" required>
 
             <label for="productCategory">Product Category</label>
             <select id="productCategory" required>
@@ -145,10 +151,10 @@
             }
             formData.append('name', document.getElementById('productName').value);
             formData.append('price', document.getElementById('productPrice').value);
+            formData.append('discount', document.getElementById('productDiscount').value); // Add discount
             formData.append('description', document.getElementById('productDescription').value);
             formData.append('weight', document.getElementById('productWeight').value);
             formData.append('unit', document.getElementById('weightUnit').value);
-            formData.append('brand', document.getElementById('productBrand').value);  // Add brand here
 
             const selectedCategory = document.getElementById('productCategory').value;
 
@@ -165,11 +171,24 @@
             if (response.ok) {
                 alert('Product saved successfully!');
                 document.getElementById('productForm').reset();
+                document.getElementById('discountedPriceDisplay').textContent = 'Discounted Price: ₹0.00'; // Reset discounted price
                 fetchCategories();
             } else {
                 alert('Error saving product.');
             }
         });
+
+        function calculateDiscountedPrice() {
+            const price = parseFloat(document.getElementById('productPrice').value);
+            const discount = parseFloat(document.getElementById('productDiscount').value) || 0;
+
+            if (!isNaN(price)) {
+                const discountedPrice = price - (price * (discount / 100));
+                document.getElementById('discountedPriceDisplay').textContent = `Discounted Price: ₹${discountedPrice.toFixed(2)}`;
+            } else {
+                document.getElementById('discountedPriceDisplay').textContent = 'Discounted Price: ₹0.00';
+            }
+        }
 
         // Fetch categories on page load
         fetchCategories();
