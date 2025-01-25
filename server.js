@@ -1,3 +1,4 @@
+// server.js
 const express = require('express');
 const mongoose = require('mongoose');
 const multer = require('multer');
@@ -76,6 +77,9 @@ app.post('/products/:category', upload.array('images', 10), async (req, res) => 
     try {
         const ProductModel = getOrCreateModel(category);
 
+        // Calculate discount percentage
+        const discount = price && discountedPrice ? ((price - discountedPrice) / price) * 100 : 0;
+
         const product = new ProductModel({
             name,
             price,
@@ -83,6 +87,7 @@ app.post('/products/:category', upload.array('images', 10), async (req, res) => 
             description,
             weight,
             unit,
+            discount: Math.round(discount), // Save discount percentage
             images: req.files.map((file) => file.buffer), // Save images as buffer
         });
 
