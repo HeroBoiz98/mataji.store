@@ -56,6 +56,21 @@
             color: red;
             font-weight: bold;
         }
+        .edit-button, .delete-button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .edit-button:hover, .delete-button:hover {
+            background-color: #0056b3;
+        }
+        .edit-form {
+            display: none;
+            margin-top: 10px;
+        }
     </style>
 </head>
 <body>
@@ -111,17 +126,17 @@
                         productPrice.textContent = `Price: ₹${product.price}`;
                         productCard.appendChild(productPrice);
 
-                        // Add discounted price
-                        const productDiscountedPrice = document.createElement('p');
-                        productDiscountedPrice.textContent = `Discounted Price: ₹${product.discountedPrice}`;
-                        productCard.appendChild(productDiscountedPrice);
-
-                        // Calculate and display discount percentage
-                        const discountPercentage = ((product.price - product.discountedPrice) / product.price) * 100;
+                        // Add discount percentage
                         const productDiscount = document.createElement('p');
                         productDiscount.className = 'discount';
-                        productDiscount.textContent = `Discount: ${discountPercentage.toFixed(2)}%`;
+                        productDiscount.textContent = `Discount: ${product.discount}%`;
                         productCard.appendChild(productDiscount);
+
+                        // Calculate and display discounted price
+                        const discountedPrice = product.price - (product.price * (product.discount / 100));
+                        const totalPrice = document.createElement('p');
+                        totalPrice.textContent = `Total Price: ₹${discountedPrice.toFixed(2)}`;
+                        productCard.appendChild(totalPrice);
 
                         // Add product description
                         const productDescription = document.createElement('p');
@@ -134,6 +149,40 @@
                         productWeight.textContent = `Weight: ${product.weight} ${product.unit}`;
                         productCard.appendChild(productWeight);
 
+                        // Edit and Delete buttons
+                        const editButton = document.createElement('button');
+                        editButton.className = 'edit-button';
+                        editButton.textContent = 'Edit';
+                        editButton.onclick = () => showEditForm(product);
+                        productCard.appendChild(editButton);
+
+                        const deleteButton = document.createElement('button');
+                        deleteButton.className = 'delete-button';
+                        deleteButton.textContent = 'Delete';
+                        deleteButton.onclick = () => deleteProduct(product._id, category); // Pass category
+                        productCard.appendChild(deleteButton);
+
+                        // Edit form
+                        const editForm = document.createElement('div');
+                        editForm.className = 'edit-form';
+                        editForm.innerHTML = `
+                            <input type="text" value="${product.name}" placeholder="Product Name" id="editName-${product._id}">
+                            <input type="number" value="${product.price}" placeholder="Product Price" id="editPrice-${product._id}">
+                            <input type="number" value="${product.discountedPrice}" placeholder="Discounted Price" id="editDiscountedPrice-${product._id}">
+                            <textarea placeholder="Product Description" id="editDescription-${product._id}">${product.description}</textarea>
+                            <input type="number" value="${product.weight}" placeholder="Product Weight" id="editWeight-${product._id}">
+                            <select id="editUnit-${product._id}">
+                                <option value="kg" ${product.unit === 'kg' ? 'selected' : ''}>kg</option>
+                                <option value="g" ${product.unit === 'g' ? 'selected' : ''}>g</option>
+                                <option value="mg" ${product.unit === 'mg' ? 'selected' : ''}>mg</option>
+                                <option value="L" ${product.unit === 'L' ? 'selected' : ''}>L</option>
+                                <option value="ml" ${product.unit === 'ml' ? 'selected' : ''}>ml</option>
+                            </select>
+                            <button onclick="updateProduct('${product._id}', '${category}')">Update</button>
+                        `;
+                        editForm.style.display = 'none';
+                        productCard.appendChild(editForm);
+
                         productContainer.appendChild(productCard);
                     });
 
@@ -143,6 +192,75 @@
             } catch (error) {
                 console.error('Error fetching products:', error);
                 productDisplay.textContent = 'Error loading products. Please try again later.';
+            }
+        }
+
+        function showEditForm(product) {
+            const editForm = document.querySelector(`.edit-form`);
+            const currentForm = document.getElementById(`editName-${product._id}`).parentElement; // Get the specific edit form
+            currentForm.style.display = currentForm.style.display === 'none' ? 'block' : 'none'; // Toggle the specific edit form
+        }
+
+        async function updateProduct(productId, category) { // Accept category as parameter
+            const name = document.getElementById(`editName-${productId}`).value;
+            const price = document.getElementById(`editPrice-${productId}`).value;
+            const discountedPrice = document.getElementById(`editDiscountedPrice-${productId}`).value;
+            const description = document.getElementById(`editDescription-${productId}`).value;
+            const weight = document.getElementById(`editWeight-${productId}`).value;
+            const unit = document.getElementById(`editUnit-${productId}`).value;
+
+            const updatedProduct = {
+                name,
+                price,
+                discountedPrice,
+                description,
+                weight,
+                unit,
+                category // Include category in the update request
+            };
+
+            try {
+                const response = await fetch(`https://mataji-store.onrender.com/products/${productId}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(updatedProduct),
+                });
+
+                if (response.ok) {
+                    alert('Product updated successfully!');
+                    location.reload(); // Reload the page to see the updated product
+                } else {
+                    alert('Error updating product.');
+                }
+            } catch (error) {
+                console.error('Error updating product:', error);
+                alert('Error updating product.');
+            }
+        }
+
+        async function deleteProduct(productId, category) { // Accept category as parameter
+            if (confirm('Are you sure you want to delete this product?')) {
+                try {
+                    const response = await fetch(`https://mataji-store.onrender.com/products/${productId}`, {
+                        method: 'DELETE',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ category }) // Send category in the delete request
+                    });
+
+                    if (response.ok) {
+                        alert('Product deleted successfully!');
+                        location.reload(); // Reload the page to see the updated product list
+                    } else {
+                        alert('Error deleting product.');
+                    }
+                } catch (error) {
+                    console.error('Error deleting product:', error);
+                    alert('Error deleting product.');
+                }
             }
         }
 
