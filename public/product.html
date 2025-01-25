@@ -111,17 +111,17 @@
                         productPrice.textContent = `Price: ₹${product.price}`;
                         productCard.appendChild(productPrice);
 
-                        // Add discount percentage
+                        // Add discounted price
+                        const productDiscountedPrice = document.createElement('p');
+                        productDiscountedPrice.textContent = `Discounted Price: ₹${product.discountedPrice}`;
+                        productCard.appendChild(productDiscountedPrice);
+
+                        // Calculate and display discount percentage
+                        const discountPercentage = ((product.price - product.discountedPrice) / product.price) * 100;
                         const productDiscount = document.createElement('p');
                         productDiscount.className = 'discount';
-                        productDiscount.textContent = `Discount: ${product.discount}%`;
+                        productDiscount.textContent = `Discount: ${discountPercentage.toFixed(2)}%`;
                         productCard.appendChild(productDiscount);
-
-                        // Calculate and display discounted price
-                        const discountedPrice = product.price - (product.price * (product.discount / 100));
-                        const totalPrice = document.createElement('p');
-                        totalPrice.textContent = `Total Price: ₹${discountedPrice.toFixed(2)}`;
-                        productCard.appendChild(totalPrice);
 
                         // Add product description
                         const productDescription = document.createElement('p');
