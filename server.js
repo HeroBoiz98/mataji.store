@@ -1,4 +1,3 @@
-// server.js
 const express = require('express');
 const mongoose = require('mongoose');
 const multer = require('multer');
@@ -117,6 +116,56 @@ app.get('/products/:category', async (req, res) => {
     } catch (error) {
         console.error('Error fetching products:', error);
         res.status(500).send('Error fetching products.');
+    }
+});
+
+// Route to update a product
+app.put('/products/:id', async (req, res) => {
+    const { id } = req.params;
+    const { name, price, discountedPrice, description, weight, unit, category } = req.body; // Include category
+
+    try {
+        const ProductModel = getOrCreateModel(category); // Get the model for the category
+        const discount = price && discountedPrice ? ((price - discountedPrice) / price) * 100 : 0;
+
+        const updatedProduct = await ProductModel.findByIdAndUpdate(id, {
+            name,
+            price,
+            discountedPrice,
+            description,
+            weight,
+            unit,
+            discount: Math.round(discount),
+        }, { new: true });
+
+        if (!updatedProduct) {
+            return res.status(404).send('Product not found.');
+        }
+
+        res.status(200).send('Product updated successfully.');
+    } catch (error) {
+        console.error('Error updating product:', error);
+        res.status(500).send('Error updating product.');
+    }
+});
+
+// Route to delete a product
+app.delete('/products/:id', async (req, res) => {
+    const { id } = req.params;
+    const { category } = req.body; // Include category
+
+    try {
+        const ProductModel = getOrCreateModel(category); // Get the model for the category
+        const deletedProduct = await ProductModel.findByIdAndDelete(id);
+
+        if (!deletedProduct) {
+            return res.status(404).send('Product not found.');
+        }
+
+        res.status(200).send('Product deleted successfully.');
+    } catch (error) {
+        console.error('Error deleting product:', error);
+        res.status(500).send('Error deleting product.');
     }
 });
 
