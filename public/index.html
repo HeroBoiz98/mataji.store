@@ -70,6 +70,7 @@
                 <option value="mg">mg</option>
                 <option value="L">L</option>
                 <option value="ml">ml</option>
+                <option value="nos">nos</option>
             </select>
 
             <label for="productCategory">Product Category</label>
@@ -87,7 +88,7 @@
 
     <script>
         async function fetchCategories() {
-            const response = await fetch('https://mataji-store.onrender.com/categories');
+            const response = await fetch('http://localhost:3000/categories');
             const categories = await response.json();
             const categoryDropdown = document.getElementById('productCategory');
 
@@ -125,7 +126,7 @@
             }
 
             // Create a new category
-            const response = await fetch('https://mataji-store.onrender.com/categories', {
+            const response = await fetch('http://localhost:3000/categories', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ category: newCategory }),
@@ -163,7 +164,7 @@
                 return;
             }
 
-            const response = await fetch(`https://mataji-store.onrender.com/products/${selectedCategory}`, {
+            const response = await fetch(`http://localhost:3000/products/${selectedCategory}`, {
                 method: 'POST',
                 body: formData,
             });
