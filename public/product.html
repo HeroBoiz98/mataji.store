@@ -85,7 +85,7 @@
 
             try {
                 // Fetch categories
-                const categoryResponse = await fetch('http://localhost:3000/categories');
+                const categoryResponse = await fetch('https://mataji-store.onrender.com/categories');
                 const categories = await categoryResponse.json();
 
                 for (const category of categories) {
@@ -101,7 +101,7 @@
                     productContainer.className = 'products';
 
                     // Fetch products for this category
-                    const productResponse = await fetch(`http://localhost:3000/products/${category}`);
+                    const productResponse = await fetch(`https://mataji-store.onrender.com/products/${category}`);
                     const products = await productResponse.json();
 
                     products.forEach((product) => {
@@ -221,7 +221,7 @@
             };
 
             try {
-                const response = await fetch(`http://localhost:3000/products/${productId}`, {
+                const response = await fetch(`https://mataji-store.onrender.com/products/${productId}`, {
                     method: 'PUT',
                     headers: {
                         'Content-Type': 'application/json',
@@ -244,7 +244,7 @@
         async function deleteProduct(productId, category) { // Accept category as parameter
             if (confirm('Are you sure you want to delete this product?')) {
                 try {
-                    const response = await fetch(`http://localhost:3000/products/${productId}`, {
+                    const response = await fetch(`https://mataji-store.onrender.com/products/${productId}`, {
                         method: 'DELETE',
                         headers: {
                             'Content-Type': 'application/json',
